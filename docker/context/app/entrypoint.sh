@@ -1,10 +1,14 @@
 #!/bin/bash
 
-composer create-project laravel/laravel /var/www/app
+workdir=/var/www/app;
 
-composer install --working-dir=/var/www/app
+if [ -z "$(ls -A $workdir)" ]; then
+  composer create-project laravel/laravel $workdir
+fi
 
-php /var/www/app/artisan migrate
+composer install --working-dir=$workdir
+
+php $workdir/artisan migrate
 
 for fileConfig in /etc/supervisor/conf.d/*.conf; do
       supervisord -c $fileConfig
