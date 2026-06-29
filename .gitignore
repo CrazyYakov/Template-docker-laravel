@@ -1,4 +1,4 @@
-logs/*
+.env
 .idea/*
-/docker/.env
-app/*
+.vscode/*
+containers/*
