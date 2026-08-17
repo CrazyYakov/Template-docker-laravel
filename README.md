@@ -23,22 +23,24 @@ rm -rf .git
 Перед тем как поднять контейнера добавьте эти параметры в `.env` файл:
 ```dotenv
 #COMMON
-APP_ENV="dev" # or production
-CONTAINER_NAME=template
+DOCKER_CONTAINER_NAME=template
 
 #APP
-PHP_VERSION=8.3
-USER_ID=1000
-GROUP_ID=1000
+DOCKER_PHP_VERSION=8.3
+DOCKER_USER_ID=1000
+DOCKER_GROUP_ID=1000
 
 #DATABASE
 DB_DATABASE=app
 DB_USERNAME=user
 DB_PASSWORD=p@$$w0Rd
 
+DOCKER_PUBLIC_DB_PORT=5454
+DOCKER_PUBLIC_SERVER_PORT=8000
+
 #SERVER
-SERVER_HOSTNAME="localhost"
-PORT=8000
+DOCKER_SERVER_HOSTNAME="localhost"
+DOCKER_SERVER_PORT=8000
 ```
 
 Не забудьте добавить свой проект в шаблон. **УДАЧИ!**

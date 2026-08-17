@@ -4,7 +4,6 @@ FROM php:${PHP_VERSION}-fpm-alpine
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
-ARG APP_ENV="dev"
 
 RUN apk update && apk add --no-cache \
     zip \
@@ -16,18 +15,15 @@ RUN apk update && apk add --no-cache \
     libjpeg-turbo-dev \
     libpng-dev \
     curl \
-    postgresql-dev
+    postgresql-dev \
+    $PHPIZE_DEPS \
+    linux-headers
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN docker-php-ext-install pdo pdo_pgsql pgsql && \
     pecl install redis
-RUN docker-php-ext-enable pdo pgsql redis
-
-RUN if [ ${APP_ENV} != "production" ]; then \
-      apk add --no-cache $PHPIZE_DEPS linux-headers; \
-      pecl install xdebug && docker-php-ext-enable xdebug;  \
-    fi
+RUN docker-php-ext-enable pdo pgsql redis xdebug
 
 RUN addgroup -g ${GROUP_ID} www && \
     adduser -D -u ${USER_ID} -G www -s /bin/bash www;
