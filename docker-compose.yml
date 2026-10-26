@@ -28,7 +28,7 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - containers/data/database:/var/lib/postgresql
+      - ./containers/data/database:/var/lib/postgresql
     ports:
       - ${DOCKER_PUBLIC_DB_PORT}:5432
     networks:
@@ -59,7 +59,7 @@ services:
     image: redis:7-alpine
     restart: unless-stopped
     volumes:
-      - containers/data/cache:/data
+      - ./containers/data/cache:/data
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s
